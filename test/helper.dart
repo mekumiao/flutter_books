@@ -75,6 +75,7 @@ ConfigurationRepository createMockConfigurationRepository() {
 
 extension PumpX on WidgetTester {
   Future<void> pumpMaterialApp(Widget child) {
+    setHydratedStorage();
     return pumpWidget(_buildTestMaterialApp(home: child));
   }
 

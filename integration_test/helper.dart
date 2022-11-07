@@ -39,6 +39,7 @@ extension PumpApp on WidgetTester {
     AuthenticationRepository? authenticationRepository,
     ConfigurationRepository? configurationRepository,
   }) {
+    setHydratedStorage();
     return pumpWidget(
       App(
         versionApi: versionApi ?? const MockVersionApi(),
