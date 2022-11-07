@@ -1,0 +1,10 @@
+{
+  "dart.lineLength": 80,
+  "[dart]": {
+    "editor.rulers": [80]
+  },
+  "dart.runPubGetOnPubspecChanges": "always",
+  "xmlTools.splitXmlnsOnFormat": true,
+  "xmlTools.splitAttributesOnFormat": true,
+  "xmlTools.enforcePrettySelfClosingTagOnFormat": true
+}

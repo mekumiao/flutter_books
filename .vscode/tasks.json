@@ -1,0 +1,139 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": [
+        "build",
+        "apk",
+        "--flavor=${input:select_environment}",
+        "--target=lib/main_${input:select_environment}.dart",
+        "--target-platform=android-arm64"
+      ],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: flutter build apk"
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": [
+        "build",
+        "apk",
+        "--flavor=${input:select_environment}",
+        "--target=lib/main_${input:select_environment}.dart",
+        "--target-platform=android-arm64",
+        "--analyze-size"
+      ],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: flutter build apk --analyze-size"
+    },
+    {
+      "type": "shell",
+      "command": "./build_latest.ps1",
+      "options": { "cwd": "${workspaceFolder}/" },
+      "args": [],
+      "problemMatcher": [],
+      "label": "shell: build the latest apk"
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": [
+        "build",
+        "web",
+        "--target=lib/main_${input:select_environment}.dart",
+        "--web-renderer=html",
+        "--release",
+        "--dart-define=FLUTTER_WEB_CANVASKIT_URL=canvaskit/"
+      ],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: flutter build web"
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": [
+        "build",
+        "windows",
+        "--target=lib/main_${input:select_environment}.dart",
+        "--release"
+      ],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: flutter build windows"
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": [
+        "build",
+        "windows",
+        "--target=lib/main_${input:select_environment}.dart",
+        "--release",
+        "--analyze-size"
+      ],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: flutter build windows --analyze-size"
+    },
+    {
+      "label": "flutter: flutter build [web, windows]",
+      "dependsOn": [
+        "flutter: flutter build web",
+        "flutter: flutter build windows"
+      ],
+      "problemMatcher": "$msCompile",
+      "dependsOrder": "sequence"
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "options": {
+        "cwd": "${workspaceFolder}/${input:package_root_folder}"
+      },
+      "args": ["pub", "run", "build_runner", "build"],
+      "problemMatcher": ["$dart-build_runner"],
+      "group": "build",
+      "label": "flutter: flutter pub run build_runner build"
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "options": {
+        "cwd": "${workspaceFolder}/${input:package_root_folder}"
+      },
+      "args": [
+        "pub",
+        "run",
+        "build_runner",
+        "build",
+        "--delete-conflicting-outputs"
+      ],
+      "problemMatcher": ["$dart-build_runner"],
+      "group": "build",
+      "label": "flutter: flutter pub run build_runner build delete-outputs"
+    }
+  ],
+  "inputs": [
+    {
+      "type": "pickString",
+      "id": "package_root_folder",
+      "description": "select package root folder",
+      "options": [
+        "./",
+        "packages/api/",
+        "packages/authentication_repository/"
+      ]
+    },
+    {
+      "type": "pickString",
+      "id": "select_environment",
+      "description": "select environment",
+      "options": ["production", "development", "staging"]
+    }
+  ]
+}

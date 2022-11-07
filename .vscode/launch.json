@@ -1,0 +1,50 @@
+{
+  // 使用 IntelliSense 了解相关属性。
+  // 悬停以查看现有属性的描述。
+  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch development",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "program": "${workspaceFolder}/lib/main_development.dart",
+      "args": [
+        "--flavor=development",
+        "--target=lib/main_development.dart",
+        "--web-port=3641",
+        "--web-hostname=localhost",
+        "--web-renderer=html"
+      ]
+    },
+    {
+      "name": "Launch production",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "program": "${workspaceFolder}/lib/main_production.dart",
+      "args": [
+        "--flavor=production",
+        "--target=lib/main_production.dart",
+        "--web-port=3641",
+        "--web-hostname=localhost",
+        "--web-renderer=html"
+      ]
+    },
+    {
+      "name": "Launch staging",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "program": "${workspaceFolder}/lib/main_staging.dart",
+      "args": [
+        "--flavor=staging",
+        "--target=lib/main_staging.dart",
+        "--web-port=3641",
+        "--web-hostname=localhost",
+        "--web-renderer=html"
+      ]
+    }
+  ]
+}

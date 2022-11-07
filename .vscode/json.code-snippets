@@ -1,0 +1,30 @@
+{
+  "json model": {
+    "scope": "dart",
+    "prefix": "json",
+    "body": [
+      "import 'package:equatable/equatable.dart';",
+      "import 'package:json_annotation/json_annotation.dart';",
+      "",
+      "part '${1:user_dto}.g.dart';",
+      "",
+      "@JsonSerializable()",
+      "class ${2:UserDto} extends Equatable {",
+      "  const ${2:UserDto}({",
+      "    this.fullname = '',",
+      "  });",
+      "",
+      "  factory ${2:UserDto}.fromJson(Map<String, dynamic> json) => _$${2:UserDto}FromJson(json);",
+      "",
+      "  final String fullname;",
+      "",
+      "  Map<String, dynamic> toJson() => _$${2:UserDto}ToJson(this);",
+      "",
+      "  @override",
+      "  List<Object?> get props => [fullname];",
+      "}",
+      ""
+    ],
+    "description": "create an model with json serializable"
+  }
+}
