@@ -32,6 +32,7 @@ dependencies:
   android_path_provider: ^0.3.0
   url_launcher: ^6.1.5
   oktoast: ^3.1.5
+  sp_util: ^2.0.3
 
   helper:
     path: packages/helper

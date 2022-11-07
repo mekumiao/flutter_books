@@ -13,6 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   equatable: ^2.0.5
+  sp_util: ^2.0.3
 
   helper:
     path: ../helper

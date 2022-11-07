@@ -1,7 +1,5 @@
 library helper;
 
-export 'package:sp_util/sp_util.dart' show SpUtil;
-
 export 'src/date_helper.dart';
 export 'src/device_helper.dart';
 export 'src/dialog_helper.dart';
