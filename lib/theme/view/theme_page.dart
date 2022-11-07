@@ -53,6 +53,7 @@ class _LightThemeButton extends StatelessWidget {
       },
       builder: (context, state) {
         return InkWell(
+          key: const Key('themePage_lightThemeButton'),
           onTap: () {
             context.read<ThemeCubit>().themeModeChanged(ThemeMode.light);
           },
@@ -89,6 +90,7 @@ class _DarkThemeButton extends StatelessWidget {
       },
       builder: (context, state) {
         return InkWell(
+          key: const Key('themePage_darkThemeButton'),
           onTap: () {
             context.read<ThemeCubit>().themeModeChanged(ThemeMode.dark);
           },
@@ -125,6 +127,7 @@ class _SystemThemeButton extends StatelessWidget {
       },
       builder: (context, state) {
         return InkWell(
+          key: const Key('themePage_systemThemeButton'),
           onTap: () {
             context.read<ThemeCubit>().themeModeChanged(ThemeMode.system);
           },
