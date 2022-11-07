@@ -17,7 +17,7 @@ Future<void> main() async {
   await bootstrap(
     versionApi: const MockVersionApi(),
     authenticationRepository: AuthenticationRepository.mock(),
-    configurationRepository: ConfigurationRepository(),
+    configurationRepository: ConfigurationRepository.memoryStore(),
     adaptResultCallback: AdaptToken.none,
   );
 }

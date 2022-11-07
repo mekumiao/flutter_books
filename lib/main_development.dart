@@ -18,7 +18,7 @@ Future<void> main() async {
   await SecurityContextLoader.ensureInitialized();
 
   final authenticationRepository = AuthenticationRepository.id4();
-  final configurationRepository = ConfigurationRepository();
+  final configurationRepository = ConfigurationRepository.localStore();
   const adaptResultCallback = AdaptToken.token;
 
   final apiDio = ApiDio.single(
