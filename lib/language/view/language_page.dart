@@ -61,6 +61,7 @@ class _ChineseLanguageButton extends StatelessWidget {
       },
       builder: (context, state) {
         return InkWell(
+          key: const Key('languagePage_chineseLanguageButton'),
           onTap: () {
             context.read<LanguageCubit>().languageCodeChanged('zh');
           },
@@ -95,6 +96,7 @@ class _EnglishLanguageButton extends StatelessWidget {
       },
       builder: (context, state) {
         return InkWell(
+          key: const Key('languagePage_englishLanguageButton'),
           onTap: () {
             context.read<LanguageCubit>().languageCodeChanged('en');
           },
@@ -129,6 +131,7 @@ class _SystemLanguageButton extends StatelessWidget {
       },
       builder: (context, state) {
         return InkWell(
+          key: const Key('languagePage_systemLanguageButton'),
           onTap: () {
             context.read<LanguageCubit>().languageCodeChanged('');
           },
