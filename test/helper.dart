@@ -56,6 +56,9 @@ AuthenticationRepository createMockAuthenticationRepository() {
   when(
     () => authenticationRepository.currentUser,
   ).thenReturn(User.empty);
+  when(
+    authenticationRepository.refreshToken,
+  ).thenAnswer((_) async {});
   return authenticationRepository;
 }
 
