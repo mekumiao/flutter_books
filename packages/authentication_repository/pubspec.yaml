@@ -20,6 +20,7 @@ dependencies:
   synchronized: ^3.0.0+2
   dio: ^4.0.1
   url_launcher: ^6.1.5
+  sp_util: ^2.0.3
 
   helper:
     path: ../helper

@@ -8,6 +8,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:helper/helper.dart';
 import 'package:remote_api/remote_api.dart';
+import 'package:sp_util/sp_util.dart';
 
 Future<void> main() async {
   Env.production();
@@ -18,7 +19,7 @@ Future<void> main() async {
   await SecurityContextLoader.ensureInitialized();
 
   final authenticationRepository = AuthenticationRepository.id4();
-  final configurationRepository = ConfigurationRepository();
+  final configurationRepository = ConfigurationRepository.localStore();
   const adaptResultCallback = AdaptToken.bearer;
 
   final apiDio = ApiDio.single(

@@ -6,6 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:helper/helper.dart';
 import 'package:mock_api/mock_api.dart';
+import 'package:sp_util/sp_util.dart';
 
 Future<void> main() async {
   Env.staging();
@@ -17,7 +18,7 @@ Future<void> main() async {
   await bootstrap(
     versionApi: const MockVersionApi(),
     authenticationRepository: AuthenticationRepository.mock(),
-    configurationRepository: ConfigurationRepository(),
+    configurationRepository: ConfigurationRepository.memoryStore(),
     adaptResultCallback: AdaptToken.none,
   );
 }

@@ -56,6 +56,9 @@ AuthenticationRepository createMockAuthenticationRepository() {
   when(
     () => authenticationRepository.currentUser,
   ).thenReturn(User.empty);
+  when(
+    authenticationRepository.refreshToken,
+  ).thenAnswer((_) async {});
   return authenticationRepository;
 }
 
@@ -72,6 +75,7 @@ ConfigurationRepository createMockConfigurationRepository() {
 
 extension PumpX on WidgetTester {
   Future<void> pumpMaterialApp(Widget child) {
+    setHydratedStorage();
     return pumpWidget(_buildTestMaterialApp(home: child));
   }
 

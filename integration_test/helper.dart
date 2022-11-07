@@ -30,7 +30,10 @@ Storage _buildMockStorage() {
   return storage;
 }
 
-class MockLocalStore extends Mock implements LocalStore {}
+ConfigurationRepository _createConfigurationRepository() {
+  final store = MemoryStore()..languageCode = 'en';
+  return ConfigurationRepository(store: store);
+}
 
 extension PumpApp on WidgetTester {
   Future<void> pumpApp(
@@ -39,13 +42,14 @@ extension PumpApp on WidgetTester {
     AuthenticationRepository? authenticationRepository,
     ConfigurationRepository? configurationRepository,
   }) {
+    setHydratedStorage();
     return pumpWidget(
       App(
         versionApi: versionApi ?? const MockVersionApi(),
         authenticationRepository:
             authenticationRepository ?? AuthenticationRepository.mock(),
         configurationRepository:
-            configurationRepository ?? createMockConfigurationRepository(),
+            configurationRepository ?? _createConfigurationRepository(),
         adaptResultCallback: AdaptToken.none,
         child: AppView(child: widget),
       ),
@@ -55,11 +59,4 @@ extension PumpApp on WidgetTester {
   Future<void> pumpRoute(Route<dynamic> route) {
     return pumpApp(Navigator(onGenerateRoute: (_) => route));
   }
-}
-
-ConfigurationRepository createMockConfigurationRepository() {
-  final store = MockLocalStore();
-  when(() => store.languageCode).thenReturn('en');
-  when(() => store.themeMode).thenReturn(ThemeMode.system);
-  return ConfigurationRepository(store: store);
 }

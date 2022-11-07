@@ -17,8 +17,6 @@ void main() {
   const testPassword = 'testP@ssw0rd1';
 
   group('登录功能测试', () {
-    setUp(setHydratedStorage);
-
     testWidgets('正确登录', (tester) async {
       await tester.pumpApp(const LoginPage());
       await tester.pumpAndSettle();

@@ -1,15 +1,22 @@
 import 'dart:async';
 
 import 'package:configuration_repository/src/local_storage.dart';
+import 'package:configuration_repository/src/memory_store.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 class ConfigurationRepository {
-  ConfigurationRepository({LocalStore? store}) {
-    _store = store ?? LocalStore();
+  ConfigurationRepository({required LocalStore store}) : _store = store;
+
+  factory ConfigurationRepository.localStore() {
+    return ConfigurationRepository(store: LocalStore());
   }
 
-  late final LocalStore _store;
+  factory ConfigurationRepository.memoryStore() {
+    return ConfigurationRepository(store: MemoryStore());
+  }
+
+  final LocalStore _store;
 
   final _stream = StreamController<Config>.broadcast();
   Stream<Config> get config => _stream.stream;

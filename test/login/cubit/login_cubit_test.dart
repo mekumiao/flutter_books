@@ -1,3 +1,4 @@
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:booksapp/login/login.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -8,14 +9,14 @@ import 'package:mocktail/mocktail.dart';
 import '../../helper.dart';
 
 void main() {
-  late MockAuthenticationRepository authenticationRepository;
+  late AuthenticationRepository authenticationRepository;
 
   const testEmail = Email.dirty('test@qq.com');
   const testPassword = Password.dirty('123123@tt');
 
   setUp(() {
     setHydratedStorage();
-    authenticationRepository = MockAuthenticationRepository();
+    authenticationRepository = createMockAuthenticationRepository();
     when(
       () => authenticationRepository.logInWithEmailAndPassword(
         email: any(named: 'email'),

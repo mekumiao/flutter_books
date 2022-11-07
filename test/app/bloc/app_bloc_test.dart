@@ -15,20 +15,8 @@ void main() {
     late ConfigurationRepository configurationRepository;
 
     setUp(() {
-      authenticationRepository = MockAuthenticationRepository();
-      configurationRepository = MockConfigurationRepository();
-      when(() => authenticationRepository.user).thenAnswer(
-        (_) => const Stream.empty(),
-      );
-      when(
-        () => authenticationRepository.currentUser,
-      ).thenReturn(User.empty);
-      when(() => configurationRepository.config).thenAnswer(
-        (_) => const Stream.empty(),
-      );
-      when(
-        () => configurationRepository.currentConfig,
-      ).thenReturn(Config.empty);
+      authenticationRepository = createMockAuthenticationRepository();
+      configurationRepository = createMockConfigurationRepository();
     });
 
     test('initial state is initial when user is empty', () {

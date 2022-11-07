@@ -18,22 +18,9 @@ void main() {
     late User user;
 
     setUp(() {
-      authenticationRepository = MockAuthenticationRepository();
-      configurationRepository = MockConfigurationRepository();
       user = MockUser();
-      when(() => authenticationRepository.user).thenAnswer(
-        (_) => const Stream.empty(),
-      );
-      when(() => authenticationRepository.currentUser).thenReturn(user);
-      when(
-        () => authenticationRepository.refreshToken(),
-      ).thenAnswer((_) async {});
-      when(
-        () => configurationRepository.currentConfig,
-      ).thenReturn(Config.empty);
-      when(
-        () => configurationRepository.config,
-      ).thenAnswer((_) => const Stream.empty());
+      authenticationRepository = createMockAuthenticationRepository();
+      configurationRepository = createMockConfigurationRepository();
       when(() => user.isNotEmpty).thenReturn(true);
       when(() => user.isEmpty).thenReturn(false);
       when(() => user.email).thenReturn('test@gmail.com');

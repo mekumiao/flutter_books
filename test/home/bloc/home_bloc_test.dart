@@ -2,7 +2,6 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:booksapp/home/home.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 
 import '../../helper.dart';
 
@@ -12,10 +11,7 @@ void main() {
 
     setUp(() {
       setHydratedStorage();
-      authenticationRepository = MockAuthenticationRepository();
-      when(() => authenticationRepository.user).thenAnswer(
-        (_) => const Stream.empty(),
-      );
+      authenticationRepository = createMockAuthenticationRepository();
     });
 
     test('initial state is initial when user is empty', () {
