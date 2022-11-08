@@ -1,40 +1,66 @@
 import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:sp_util/sp_util.dart';
 
-class LocalStore {
-  LocalStore();
+part 'local_storage.g.dart';
 
-  static const _themeModeKey = '__theme_mode_store_key__';
-  static const _languageCodeKey = '__language_code_store_key__';
+class LocalStorage {
+  LocalStorage();
 
-  ThemeMode? _themeMode;
-  String? _languageCode;
+  static const _storageKey = '__local_storage_key__';
 
-  ThemeMode get themeMode {
-    if (_themeMode == null) {
-      try {
-        _themeMode = ThemeMode.values[SpUtil.getInt(_themeModeKey)!];
-      } catch (_) {}
-    }
-    return _themeMode!;
+  LocalStorageModel? _model;
+
+  void _readOnce() {
+    if (_model != null) return;
+    try {
+      _model = SpUtil.getObj<LocalStorageModel>(
+        _storageKey,
+        (v) => LocalStorageModel.fromJson(v as Map<String, dynamic>),
+      );
+    } catch (_) {}
+    _model ??= const LocalStorageModel();
   }
 
-  set themeMode(ThemeMode mode) {
-    _themeMode = mode;
-    SpUtil.putInt(_themeModeKey, mode.index);
+  void _write() {
+    if (_model == null) return;
+    try {
+      SpUtil.putObject(_storageKey, _model!.toJson());
+    } catch (_) {}
   }
 
-  String get languageCode {
-    if (_languageCode == null) {
-      try {
-        _languageCode = SpUtil.getString(_languageCodeKey);
-      } catch (_) {}
-    }
-    return _languageCode!;
+  LocalStorageModel get model {
+    _readOnce();
+    return _model!;
   }
 
-  set languageCode(String code) {
-    _languageCode = code;
-    SpUtil.putString(_languageCodeKey, code);
+  set model(LocalStorageModel model) {
+    _model = model;
+    _write();
+  }
+}
+
+@JsonSerializable()
+class LocalStorageModel {
+  const LocalStorageModel({
+    this.themeMode = ThemeMode.system,
+    this.languageCode = '',
+  });
+
+  factory LocalStorageModel.fromJson(Map<String, dynamic> json) =>
+      _$LocalStorageModelFromJson(json);
+  Map<String, dynamic> toJson() => _$LocalStorageModelToJson(this);
+
+  final ThemeMode themeMode;
+  final String languageCode;
+
+  LocalStorageModel copyWith({
+    ThemeMode? themeMode,
+    String? languageCode,
+  }) {
+    return LocalStorageModel(
+      themeMode: themeMode ?? this.themeMode,
+      languageCode: languageCode ?? this.languageCode,
+    );
   }
 }
