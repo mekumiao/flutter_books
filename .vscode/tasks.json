@@ -126,7 +126,8 @@
       "options": [
         "./",
         "packages/api/",
-        "packages/authentication_repository/"
+        "packages/authentication_repository/",
+        "packages/configuration_repository/"
       ]
     },
     {

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:authentication_repository/authentication_repository.dart';
+import 'package:bloc_transformer/bloc_transformer.dart';
 import 'package:configuration_repository/configuration_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +24,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
             languageCode: configurationRepository.currentConfig.languageCode,
           ),
         ) {
-    on<AppLoaded>(_onAppLoaded);
-    on<UserChanged>(_onUserChanged);
+    on<AutoAuthorized>(_onAutoAuthorized);
+    on<UserChanged>(_onUserChanged, transformer: throttleDroppable());
     on<LogoutRequested>(_onLogoutRequested);
     on<ThemeModeChanged>(_onThemeModeChanged);
     on<LanguageCodeChanged>(_onLanguageCodeChanged);
@@ -47,12 +48,12 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   late final StreamSubscription<User> _userSubscription;
   late final StreamSubscription<Config> _configSubscription;
 
-  Future<void> _onAppLoaded(
-    AppLoaded event,
+  Future<void> _onAutoAuthorized(
+    AutoAuthorized event,
     Emitter<AppState> emit,
   ) async {
     try {
-      await _authenticationRepository.refreshToken();
+      await _authenticationRepository.ensureAvailable();
     } on RefreshTokenError catch (e) {
       if (e.code == 2) {
         showToast('登录已过期，需要重新登录');

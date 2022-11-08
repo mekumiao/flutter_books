@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:general_data/general_data.dart';
-import 'package:general_widgets/src/buttons/my_button.dart';
 import 'package:general_widgets/src/l10n/general_localizations.dart';
 import 'package:helper/helper.dart';
 
@@ -38,7 +37,6 @@ class BaseDialog extends StatelessWidget {
       children: <Widget>[
         DialogButton(
           text: context.generaltr.cancel,
-          textColor: Colours.text_gray,
           onPressed: () => Navigator.maybePop(context),
         ),
         const SizedBox(
@@ -119,11 +117,12 @@ class DialogButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: MyButton(
-        text: text,
-        textColor: textColor,
+      child: ElevatedButton(
         onPressed: onPressed,
-        backgroundColor: Colors.transparent,
+        child: Text(
+          text,
+          style: TextStyle(color: textColor),
+        ),
       ),
     );
   }

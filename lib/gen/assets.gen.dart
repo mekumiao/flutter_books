@@ -12,11 +12,91 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/setting.png
-  AssetGenImage get setting => const AssetGenImage('assets/images/setting.png');
+  /// File path: assets/images/book1.png
+  AssetGenImage get book1 => const AssetGenImage('assets/images/book1.png');
+
+  /// File path: assets/images/book2.png
+  AssetGenImage get book2 => const AssetGenImage('assets/images/book2.png');
+
+  /// File path: assets/images/book3.png
+  AssetGenImage get book3 => const AssetGenImage('assets/images/book3.png');
+
+  /// File path: assets/images/book4.png
+  AssetGenImage get book4 => const AssetGenImage('assets/images/book4.png');
+
+  /// File path: assets/images/book5.png
+  AssetGenImage get book5 => const AssetGenImage('assets/images/book5.png');
+
+  /// File path: assets/images/book6.png
+  AssetGenImage get book6 => const AssetGenImage('assets/images/book6.png');
+
+  /// File path: assets/images/buy_success.png
+  AssetGenImage get buySuccess =>
+      const AssetGenImage('assets/images/buy_success.png');
+
+  /// File path: assets/images/ic_arrow_left.png
+  AssetGenImage get icArrowLeft =>
+      const AssetGenImage('assets/images/ic_arrow_left.png');
+
+  /// File path: assets/images/ic_eyes.png
+  AssetGenImage get icEyes => const AssetGenImage('assets/images/ic_eyes.png');
+
+  /// File path: assets/images/ic_facebook.png
+  AssetGenImage get icFacebook =>
+      const AssetGenImage('assets/images/ic_facebook.png');
+
+  /// File path: assets/images/ic_google.png
+  AssetGenImage get icGoogle =>
+      const AssetGenImage('assets/images/ic_google.png');
+
+  /// File path: assets/images/ic_home.png
+  AssetGenImage get icHome => const AssetGenImage('assets/images/ic_home.png');
+
+  /// File path: assets/images/ic_open_book.png
+  AssetGenImage get icOpenBook =>
+      const AssetGenImage('assets/images/ic_open_book.png');
+
+  /// File path: assets/images/ic_picture.png
+  AssetGenImage get icPicture =>
+      const AssetGenImage('assets/images/ic_picture.png');
+
+  /// File path: assets/images/ic_search.png
+  AssetGenImage get icSearch =>
+      const AssetGenImage('assets/images/ic_search.png');
+
+  /// File path: assets/images/login_cover.png
+  AssetGenImage get loginCover =>
+      const AssetGenImage('assets/images/login_cover.png');
+
+  /// File path: assets/images/plaintext.png
+  AssetGenImage get plaintext =>
+      const AssetGenImage('assets/images/plaintext.png');
+
+  /// File path: assets/images/splash_cover.png
+  AssetGenImage get splashCover =>
+      const AssetGenImage('assets/images/splash_cover.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [setting];
+  List<AssetGenImage> get values => [
+        book1,
+        book2,
+        book3,
+        book4,
+        book5,
+        book6,
+        buySuccess,
+        icArrowLeft,
+        icEyes,
+        icFacebook,
+        icGoogle,
+        icHome,
+        icOpenBook,
+        icPicture,
+        icSearch,
+        loginCover,
+        plaintext,
+        splashCover
+      ];
 }
 
 class $AssetsPemsGen {

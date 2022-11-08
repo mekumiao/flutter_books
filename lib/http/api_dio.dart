@@ -62,7 +62,7 @@ class RefreshTokenInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     if (authenticationRepository.shouldRefreshToken) {
-      await authenticationRepository.refreshToken();
+      await authenticationRepository.ensureAvailable();
     }
     super.onRequest(options, handler);
   }

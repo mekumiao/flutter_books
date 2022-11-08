@@ -27,25 +27,22 @@ class DeleteBottomSheet extends StatelessWidget {
               ),
             ),
             Gaps.line,
-            MyButton(
-              minHeight: 54,
-              textColor: Theme.of(context).errorColor,
-              text: context.generaltr.confirm,
-              backgroundColor: Colors.transparent,
+            ElevatedButton(
               onPressed: () {
                 Navigator.of(context).maybePop();
                 onTapDelete();
               },
+              child: Text(
+                context.generaltr.confirm,
+                style: TextStyle(color: Theme.of(context).errorColor),
+              ),
             ),
             Gaps.line,
-            MyButton(
-              minHeight: 54,
-              textColor: Colours.text_gray,
-              text: context.generaltr.cancel,
-              backgroundColor: Colors.transparent,
+            ElevatedButton(
               onPressed: () {
                 Navigator.of(context).maybePop();
               },
+              child: Text(context.generaltr.cancel),
             ),
           ],
         ),

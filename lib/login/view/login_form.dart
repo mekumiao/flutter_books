@@ -145,11 +145,8 @@ class _EmailInput extends StatelessWidget {
                 width: 0.8,
               ),
             ),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).dividerTheme.color!,
-                width: 0.8,
-              ),
+            enabledBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(width: 0.8),
             ),
           ),
         );
@@ -201,11 +198,8 @@ class _PasswordInput extends StatelessWidget {
                 width: 0.8,
               ),
             ),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).dividerTheme.color!,
-                width: 0.8,
-              ),
+            enabledBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(width: 0.8),
             ),
           ),
         );

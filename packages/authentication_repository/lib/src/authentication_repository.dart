@@ -34,7 +34,14 @@ class AuthenticationRepository {
     AuthorizationCodeGrantProvider? authorizationCodeGrantProvider,
   })  : _offlineAccessProvider = offlineAccessProvider,
         _passwordGrantProvider = passwordGrantProvider,
-        _authorizationCodeGrantProvider = authorizationCodeGrantProvider;
+        _authorizationCodeGrantProvider = authorizationCodeGrantProvider {
+    // 使用户与凭据同步
+    _readUser();
+    final cre = _readCredentials();
+    if (cre?.isExpired ?? false) {
+      _removeUser();
+    }
+  }
 
   factory AuthenticationRepository.id4() {
     return AuthenticationRepository(
@@ -72,14 +79,22 @@ class AuthenticationRepository {
 
   Stream<User> get user => _userStream.stream;
 
-  User get currentUser {
-    return _currentUser ??= SpUtil.getObj(
-      userCacheKey,
-      (v) => User.fromJson(v as Map<String, dynamic>),
-      defValue: User.empty,
-    )!;
+  User get currentUser => _currentUser ??= _readUser();
+
+  /// 用户凭据
+  Credentials? get credentials => _readCredentials();
+
+  /// 是否有凭据
+  bool get hasCredentials => _readCredentials() != null;
+
+  /// 判断当前凭据是否可用
+  bool get isAvailable {
+    _readUser();
+    _readCredentials();
+    return hasCredentials && !_credentials!.isExpired && currentUser.isNotEmpty;
   }
 
+  /// 是否应该并且能够刷新token
   bool get shouldRefreshToken {
     final cre = _readCredentials();
     return cre != null && cre.isExpired && cre.canRefresh;
@@ -88,7 +103,7 @@ class AuthenticationRepository {
   Future<String?> get token async {
     if (shouldRefreshToken) {
       try {
-        await refreshToken();
+        await ensureAvailable();
       } on RefreshTokenError catch (e) {
         Log.logger.e('err: RefreshTokenError', e);
       }
@@ -109,6 +124,14 @@ class AuthenticationRepository {
       }
     }
     return null;
+  }
+
+  User _readUser() {
+    return SpUtil.getObj(
+      userCacheKey,
+      (v) => User.fromJson(v as Map<String, dynamic>),
+      defValue: User.empty,
+    )!;
   }
 
   Future<void> _saveCredentials(Credentials credentials) async {
@@ -135,11 +158,13 @@ class AuthenticationRepository {
     return us;
   }
 
-  /// 序列化执行刷新token操作
+  /// 确保凭据是可用的
+  ///
+  /// 当需要刷新token时，将序列化执行刷新token操作
   ///
   /// 当刷新失败时，将退出登录并抛出异常`RefreshTokenError`
-  Future<void> refreshToken() async {
-    Log.logger.d('call refreshToken');
+  Future<void> ensureAvailable() async {
+    Log.logger.d('call ensureAvailable');
     await _lock.synchronized(() async {
       await _refreshToken();
     });
@@ -150,11 +175,13 @@ class AuthenticationRepository {
   /// 当刷新失败时，将退出登录并抛出异常`RefreshTokenError`
   Future<void> _refreshToken() async {
     final cre = _readCredentials();
+
+    // 没有凭据或者无法刷新时直接退出并抛出异常
     if (cre == null || (cre.isExpired && !cre.canRefresh)) {
       unawaited(logOut());
       throw RefreshTokenError(1, 'Not logged in');
     }
-    if (cre.isExpired && cre.canRefresh) {
+    if (shouldRefreshToken) {
       final crec = await _offlineAccessProvider.refreshToken(cre);
       if (crec == null) {
         unawaited(logOut());

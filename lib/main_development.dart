@@ -17,8 +17,9 @@ Future<void> main() async {
   await SpUtil.getInstance();
   await Device.ensureInitialized();
   await SecurityContextLoader.ensureInitialized();
+  // await SpUtil.clear();
 
-  final authenticationRepository = AuthenticationRepository.id4();
+  final authenticationRepository = AuthenticationRepository.mock();
   final configurationRepository = ConfigurationRepository.localStore();
   const adaptResultCallback = AdaptToken.token;
 

@@ -1,3 +1,4 @@
+import 'package:booksapp/app/app.dart';
 import 'package:booksapp/home/bloc/home_bloc.dart';
 import 'package:booksapp/home/home.dart';
 import 'package:booksapp/l10n/localization.dart';
@@ -25,7 +26,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => HomeBloc(authenticationRepository: context.read()),
+      create: (context) {
+        context.read<AppBloc>().add(AutoAuthorized());
+        return HomeBloc(authenticationRepository: context.read());
+      },
       child: const HomeView(),
     );
   }
@@ -105,10 +109,6 @@ class _BottomNavigationBar extends StatelessWidget {
           iconSize: 21,
           selectedFontSize: Dimens.font_sp10,
           unselectedFontSize: Dimens.font_sp10,
-          selectedItemColor: Theme.of(context).primaryColor,
-          unselectedItemColor: context.isDark
-              ? Colours.dark_unselected_item_color
-              : Colours.unselected_item_color,
           onTap: (index) {
             context.read<HomeBloc>().add(TabChanged(index));
           },

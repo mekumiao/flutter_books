@@ -31,7 +31,7 @@ Storage _buildMockStorage() {
 }
 
 ConfigurationRepository _createConfigurationRepository() {
-  final store = MemoryStore()..languageCode = 'en';
+  final store = MemoryStorage(const LocalStorageModel(languageCode: 'en'));
   return ConfigurationRepository(store: store);
 }
 

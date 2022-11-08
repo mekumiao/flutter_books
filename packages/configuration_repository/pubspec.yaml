@@ -14,6 +14,7 @@ dependencies:
     sdk: flutter
   equatable: ^2.0.5
   sp_util: ^2.0.3
+  json_annotation: ^4.7.0
 
   helper:
     path: ../helper
@@ -21,7 +22,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^2.2.1
   very_good_analysis: 3.1.0
+  json_serializable: ^6.5.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

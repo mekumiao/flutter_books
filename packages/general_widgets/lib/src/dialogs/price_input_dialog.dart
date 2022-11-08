@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:general_widgets/src/dialogs/base_dialog.dart';
-import 'package:helper/helper.dart';
 import 'package:input_formatter/input_formatter.dart';
 
 class PriceInputDialog extends StatefulWidget {
@@ -37,7 +36,6 @@ class PriceInputDialogState extends State<PriceInputDialog> {
         alignment: Alignment.center,
         margin: const EdgeInsets.fromLTRB(16, 8, 16, 0),
         decoration: BoxDecoration(
-          color: ThemeHelper.getDialogTextFieldColor(context),
           borderRadius: BorderRadius.circular(2),
         ),
         child: TextField(
