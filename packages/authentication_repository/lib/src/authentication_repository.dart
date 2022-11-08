@@ -73,6 +73,7 @@ class AuthenticationRepository {
   Stream<User> get user => _userStream.stream;
 
   User get currentUser {
+    if (!hasCredentials) return User.empty;
     return _currentUser ??= SpUtil.getObj(
       userCacheKey,
       (v) => User.fromJson(v as Map<String, dynamic>),
@@ -80,6 +81,10 @@ class AuthenticationRepository {
     )!;
   }
 
+  /// 是否有凭据
+  bool get hasCredentials => _readCredentials() != null;
+
+  /// 是否应该并且能够刷新token
   bool get shouldRefreshToken {
     final cre = _readCredentials();
     return cre != null && cre.isExpired && cre.canRefresh;
@@ -150,11 +155,13 @@ class AuthenticationRepository {
   /// 当刷新失败时，将退出登录并抛出异常`RefreshTokenError`
   Future<void> _refreshToken() async {
     final cre = _readCredentials();
+
+    // 没有凭据或者无法刷新时直接退出并抛出异常
     if (cre == null || (cre.isExpired && !cre.canRefresh)) {
       unawaited(logOut());
       throw RefreshTokenError(1, 'Not logged in');
     }
-    if (cre.isExpired && cre.canRefresh) {
+    if (shouldRefreshToken) {
       final crec = await _offlineAccessProvider.refreshToken(cre);
       if (crec == null) {
         unawaited(logOut());
