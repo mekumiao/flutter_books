@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:stream_transform/stream_transform.dart';
 
-/// 减速流并且确保流中同时只有一个event被处理
+/// 在处理当前event结束前，抛弃其余event。并且减速当前正在处理的event流
 EventTransformer<E> throttleDroppable<E>({
   Duration duration = const Duration(milliseconds: 300),
 }) {

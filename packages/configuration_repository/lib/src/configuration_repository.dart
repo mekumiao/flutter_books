@@ -26,10 +26,12 @@ class ConfigurationRepository {
   void updateConfig({
     ThemeMode? themeMode,
     String? languageCode,
+    bool? isDisplayedSplash,
   }) {
     final model = _store.model = _store.model.copyWith(
       themeMode: themeMode,
       languageCode: languageCode,
+      isDisplayedSplash: isDisplayedSplash,
     );
     _stream.add(Config.fromStorageModel(model));
   }
@@ -39,27 +41,32 @@ class Config extends Equatable {
   const Config({
     this.themeMode = ThemeMode.system,
     this.languageCode = '',
+    this.isDisplayedSplash = false,
   });
 
   factory Config.fromStorageModel(LocalStorageModel model) {
     return Config(
       themeMode: model.themeMode,
       languageCode: model.languageCode,
+      isDisplayedSplash: model.isDisplayedSplash,
     );
   }
 
   final ThemeMode themeMode;
   final String languageCode;
+  final bool isDisplayedSplash;
 
   static const empty = Config();
 
   Config copyWith({
     ThemeMode? themeMode,
     String? languageCode,
+    bool? isDisplayedSplash,
   }) {
     return Config(
       themeMode: themeMode ?? this.themeMode,
       languageCode: languageCode ?? this.languageCode,
+      isDisplayedSplash: isDisplayedSplash ?? this.isDisplayedSplash,
     );
   }
 
@@ -67,5 +74,6 @@ class Config extends Equatable {
   List<Object?> get props => [
         themeMode,
         languageCode,
+        isDisplayedSplash,
       ];
 }

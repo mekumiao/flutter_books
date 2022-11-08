@@ -6,9 +6,9 @@ import '../../helper.dart';
 
 void main() {
   group('AppEvent', () {
-    group('AppLoaded', () {
+    group('AutoAuthorized', () {
       test('supports value comparisons', () {
-        expect(AppLoaded(), AppLoaded());
+        expect(AutoAuthorized(), AutoAuthorized());
       });
     });
 

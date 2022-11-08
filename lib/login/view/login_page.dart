@@ -1,3 +1,4 @@
+import 'package:booksapp/app/app.dart';
 import 'package:booksapp/l10n/localization.dart';
 import 'package:booksapp/login/login.dart';
 import 'package:booksapp/setting/setting.dart';
@@ -18,9 +19,10 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => LoginCubit(
-        authenticationRepository: context.read(),
-      ),
+      create: (context) {
+        context.read<AppBloc>().add(AutoAuthorized());
+        return LoginCubit(authenticationRepository: context.read());
+      },
       child: const LoginView(),
     );
   }

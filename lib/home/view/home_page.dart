@@ -1,3 +1,4 @@
+import 'package:booksapp/app/app.dart';
 import 'package:booksapp/home/bloc/home_bloc.dart';
 import 'package:booksapp/home/home.dart';
 import 'package:booksapp/l10n/localization.dart';
@@ -25,7 +26,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => HomeBloc(authenticationRepository: context.read()),
+      create: (context) {
+        context.read<AppBloc>().add(AutoAuthorized());
+        return HomeBloc(authenticationRepository: context.read());
+      },
       child: const HomeView(),
     );
   }

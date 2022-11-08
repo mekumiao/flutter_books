@@ -18,7 +18,7 @@ Future<void> main() async {
   await Device.ensureInitialized();
   await SecurityContextLoader.ensureInitialized();
 
-  final authenticationRepository = AuthenticationRepository.id4();
+  final authenticationRepository = AuthenticationRepository.mock();
   final configurationRepository = ConfigurationRepository.localStore();
   const adaptResultCallback = AdaptToken.token;
 

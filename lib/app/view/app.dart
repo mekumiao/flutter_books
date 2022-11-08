@@ -9,6 +9,7 @@ import 'package:booksapp/l10n/localization.dart';
 import 'package:booksapp/login/login.dart';
 import 'package:booksapp/splash/splash.dart';
 import 'package:configuration_repository/configuration_repository.dart';
+import 'package:diagnose_logger/diagnose_logger.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,7 +49,7 @@ class App extends StatelessWidget {
         create: (context) => AppBloc(
           authenticationRepository: context.read(),
           configurationRepository: context.read(),
-        )..add(AppLoaded()),
+        ),
         child: child ?? const AppView(),
       ),
     );
@@ -100,7 +101,17 @@ class _AppViewState extends State<AppView> {
             if (Device.isDesktop) setWindowTitle(context.apptr.title);
             return context.apptr.title;
           },
-          onGenerateRoute: (_) => SplashPage.route(),
+          onGenerateRoute: (_) {
+            final authRepo = context.read<AuthenticationRepository>();
+            final confRepo = context.read<ConfigurationRepository>();
+            if (confRepo.currentConfig.isDisplayedSplash == false) {
+              return SplashPage.route();
+            }
+            if (authRepo.isAvailable) {
+              return HomePage.route();
+            }
+            return LoginPage.route();
+          },
           localizationsDelegates: const [
             ...AppLocalizations.localizationsDelegates,
             GeneralLocalizations.delegate,
@@ -136,8 +147,8 @@ class _AppViewState extends State<AppView> {
 
   Widget _buildBlocListener(Widget? child) {
     return BlocListener<AppBloc, AppState>(
-      listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
+        Log.logger.d(':BlocListener ${state.status}');
         switch (state.status) {
           case AppStatus.authenticated:
             _navigator.pushAndRemoveUntil<void>(

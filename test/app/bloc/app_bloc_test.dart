@@ -29,21 +29,21 @@ void main() {
       );
     });
 
-    group('AppLoaded', () {
+    group('AutoAuthorized', () {
       blocTest<AppBloc, AppState>(
-        'invokes refreshToken',
+        'invokes ensureAvailable',
         setUp: () {
           when(
-            () => authenticationRepository.refreshToken(),
+            () => authenticationRepository.ensureAvailable(),
           ).thenAnswer((_) async {});
         },
         build: () => AppBloc(
           authenticationRepository: authenticationRepository,
           configurationRepository: configurationRepository,
         ),
-        act: (bloc) => bloc.add(AppLoaded()),
+        act: (bloc) => bloc.add(AutoAuthorized()),
         verify: (_) {
-          verify(() => authenticationRepository.refreshToken()).called(1);
+          verify(() => authenticationRepository.ensureAvailable()).called(1);
         },
       );
     });
