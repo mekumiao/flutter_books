@@ -7,14 +7,14 @@ part of 'paged_result.dart';
 // **************************************************************************
 
 PagedResult _$PagedResultFromJson(Map<String, dynamic> json) => PagedResult(
-      items: json['Items'] as List<dynamic>,
-      startingIndex: json['StartingIndex'] as int,
-      hasNext: json['HasNext'] as bool,
+      items: json['items'] as List<dynamic>,
+      startingIndex: json['starting_index'] as int,
+      hasNext: json['has_next'] as bool,
     );
 
 Map<String, dynamic> _$PagedResultToJson(PagedResult instance) =>
     <String, dynamic>{
-      'Items': instance.items,
-      'StartingIndex': instance.startingIndex,
-      'HasNext': instance.hasNext,
+      'items': instance.items,
+      'starting_index': instance.startingIndex,
+      'has_next': instance.hasNext,
     };

@@ -7,14 +7,14 @@ part of 'output_result.dart';
 // **************************************************************************
 
 OutputResult _$OutputResultFromJson(Map<String, dynamic> json) => OutputResult(
-      code: json['Code'] as int,
-      message: json['Message'] as String,
-      result: json['Result'],
+      code: json['code'] as int,
+      message: json['message'] as String,
+      result: json['result'],
     );
 
 Map<String, dynamic> _$OutputResultToJson(OutputResult instance) =>
     <String, dynamic>{
-      'Code': instance.code,
-      'Message': instance.message,
-      'Result': instance.result,
+      'code': instance.code,
+      'message': instance.message,
+      'result': instance.result,
     };

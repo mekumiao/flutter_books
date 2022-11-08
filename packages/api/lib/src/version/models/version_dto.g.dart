@@ -7,20 +7,20 @@ part of 'version_dto.dart';
 // **************************************************************************
 
 VersionDto _$VersionDtoFromJson(Map<String, dynamic> json) => VersionDto(
-      id: json['Id'] as String,
-      url: json['Url'] as String,
-      name: json['Name'] as String,
-      versionCode: json['VersionCode'] as int,
-      versionName: json['VersionName'] as String,
-      remark: json['Remark'] as String,
+      id: json['id'] as String,
+      url: json['url'] as String,
+      name: json['name'] as String,
+      versionCode: json['version_code'] as int,
+      versionName: json['version_name'] as String,
+      remark: json['remark'] as String,
     );
 
 Map<String, dynamic> _$VersionDtoToJson(VersionDto instance) =>
     <String, dynamic>{
-      'Id': instance.id,
-      'Url': instance.url,
-      'Name': instance.name,
-      'VersionCode': instance.versionCode,
-      'VersionName': instance.versionName,
-      'Remark': instance.remark,
+      'id': instance.id,
+      'url': instance.url,
+      'name': instance.name,
+      'version_code': instance.versionCode,
+      'version_name': instance.versionName,
+      'remark': instance.remark,
     };

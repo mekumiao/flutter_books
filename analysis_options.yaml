@@ -6,7 +6,6 @@ analyzer:
     implicit-dynamic: true
   exclude:
     - "lib/gen/**/*.dart"
-    - "lib/**/*.g.dart"
 
 linter:
   rules:
