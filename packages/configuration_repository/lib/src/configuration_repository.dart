@@ -27,11 +27,13 @@ class ConfigurationRepository {
     ThemeMode? themeMode,
     String? languageCode,
     bool? isDisplayedSplash,
+    bool? isStarted,
   }) {
     final model = _store.model = _store.model.copyWith(
       themeMode: themeMode,
       languageCode: languageCode,
       isDisplayedSplash: isDisplayedSplash,
+      isStarted: isStarted,
     );
     _stream.add(Config.fromStorageModel(model));
   }
@@ -42,6 +44,7 @@ class Config extends Equatable {
     this.themeMode = ThemeMode.system,
     this.languageCode = '',
     this.isDisplayedSplash = false,
+    this.isStarted = false,
   });
 
   factory Config.fromStorageModel(LocalStorageModel model) {
@@ -49,12 +52,14 @@ class Config extends Equatable {
       themeMode: model.themeMode,
       languageCode: model.languageCode,
       isDisplayedSplash: model.isDisplayedSplash,
+      isStarted: model.isStarted,
     );
   }
 
   final ThemeMode themeMode;
   final String languageCode;
   final bool isDisplayedSplash;
+  final bool isStarted;
 
   static const empty = Config();
 
@@ -62,11 +67,13 @@ class Config extends Equatable {
     ThemeMode? themeMode,
     String? languageCode,
     bool? isDisplayedSplash,
+    bool? isStarted,
   }) {
     return Config(
       themeMode: themeMode ?? this.themeMode,
       languageCode: languageCode ?? this.languageCode,
       isDisplayedSplash: isDisplayedSplash ?? this.isDisplayedSplash,
+      isStarted: isStarted ?? this.isStarted,
     );
   }
 
@@ -75,5 +82,6 @@ class Config extends Equatable {
         themeMode,
         languageCode,
         isDisplayedSplash,
+        isStarted,
       ];
 }
