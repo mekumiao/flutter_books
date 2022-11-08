@@ -8,6 +8,7 @@ import 'package:booksapp/home/home.dart';
 import 'package:booksapp/l10n/localization.dart';
 import 'package:booksapp/login/login.dart';
 import 'package:booksapp/splash/splash.dart';
+import 'package:booksapp/start/start.dart';
 import 'package:configuration_repository/configuration_repository.dart';
 import 'package:diagnose_logger/diagnose_logger.dart';
 import 'package:flutter/gestures.dart';
@@ -104,6 +105,9 @@ class _AppViewState extends State<AppView> {
           onGenerateRoute: (_) {
             final authRepo = context.read<AuthenticationRepository>();
             final confRepo = context.read<ConfigurationRepository>();
+            if (confRepo.currentConfig.isStarted == false) {
+              return StartPage.route();
+            }
             if (confRepo.currentConfig.isDisplayedSplash == false) {
               return SplashPage.route();
             }

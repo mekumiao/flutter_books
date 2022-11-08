@@ -46,6 +46,7 @@ class LocalStorageModel {
     this.themeMode = ThemeMode.system,
     this.languageCode = '',
     this.isDisplayedSplash = false,
+    this.isStarted = false,
   });
 
   factory LocalStorageModel.fromJson(Map<String, dynamic> json) =>
@@ -55,16 +56,19 @@ class LocalStorageModel {
   final ThemeMode themeMode;
   final String languageCode;
   final bool isDisplayedSplash;
+  final bool isStarted;
 
   LocalStorageModel copyWith({
     ThemeMode? themeMode,
     String? languageCode,
     bool? isDisplayedSplash,
+    bool? isStarted,
   }) {
     return LocalStorageModel(
       themeMode: themeMode ?? this.themeMode,
       languageCode: languageCode ?? this.languageCode,
       isDisplayedSplash: isDisplayedSplash ?? this.isDisplayedSplash,
+      isStarted: isStarted ?? this.isStarted,
     );
   }
 }
