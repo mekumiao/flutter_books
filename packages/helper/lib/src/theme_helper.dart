@@ -4,19 +4,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:general_data/general_data.dart';
 
 class ThemeHelper {
   static bool isDark(BuildContext context) {
     return Theme.of(context).brightness == Brightness.dark;
-  }
-
-  static Color? getTextColor(BuildContext context) {
-    return isDark(context) ? Colours.dark_text : null;
-  }
-
-  static Color getDialogTextFieldColor(BuildContext context) {
-    return isDark(context) ? Colours.dark_bg_gray_ : Colours.bg_gray;
   }
 
   static StreamSubscription<dynamic>? _subscription;
@@ -47,8 +38,7 @@ class ThemeHelper {
       final systemUiOverlayStyle = SystemUiOverlayStyle(
         /// 透明状态栏
         statusBarColor: Colors.transparent,
-        systemNavigationBarColor:
-            isDarka ? Colours.dark_bg_color : Colors.white,
+        systemNavigationBarColor: Colors.white,
         systemNavigationBarIconBrightness:
             isDarka ? Brightness.light : Brightness.dark,
       );

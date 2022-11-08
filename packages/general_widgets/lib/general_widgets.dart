@@ -4,7 +4,6 @@ export 'package:cached_network_image/cached_network_image.dart'
     show CachedNetworkImageProvider;
 
 export 'src/appbars/my_app_bar.dart';
-export 'src/buttons/my_button.dart';
 export 'src/buttons/plain_button.dart';
 export 'src/dialogs/base_dialog.dart';
 export 'src/dialogs/price_input_dialog.dart';

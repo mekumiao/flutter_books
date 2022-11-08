@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:general_data/general_data.dart';
-import 'package:general_widgets/src/buttons/my_button.dart';
 import 'package:helper/helper.dart';
 
 /// 自定义AppBar
@@ -101,7 +100,6 @@ class BackButton extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       icon: Image.asset(
         'assets/ic_arrow_left.png',
-        color: ThemeHelper.getTextColor(context),
         package: 'general_widgets',
       ),
     );
@@ -132,13 +130,12 @@ class ActionButton extends StatelessWidget {
           ),
         ),
         child: child ??
-            MyButton(
-              fontSize: Dimens.font_sp14,
-              minWidth: null,
-              text: text ?? '',
-              textColor: context.isDark ? Colours.dark_text : Colours.text,
-              backgroundColor: Colors.transparent,
+            ElevatedButton(
               onPressed: onPressed ?? () => {},
+              child: Text(
+                text ?? '',
+                style: const TextStyle(fontSize: Dimens.font_sp14),
+              ),
             ),
       ),
     );
