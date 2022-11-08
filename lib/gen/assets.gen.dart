@@ -9,16 +9,6 @@
 
 import 'package:flutter/widgets.dart';
 
-class $AssetsImagesGen {
-  const $AssetsImagesGen();
-
-  /// File path: assets/images/setting.png
-  AssetGenImage get setting => const AssetGenImage('assets/images/setting.png');
-
-  /// List of all assets
-  List<AssetGenImage> get values => [setting];
-}
-
 class $AssetsPemsGen {
   const $AssetsPemsGen();
 
@@ -35,7 +25,6 @@ class $AssetsPemsGen {
 class Assets {
   Assets._();
 
-  static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsPemsGen pems = $AssetsPemsGen();
 }
 

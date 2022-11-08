@@ -1,10 +1,8 @@
-import 'package:booksapp/gen/assets.gen.dart';
 import 'package:booksapp/l10n/localization.dart';
 import 'package:booksapp/login/login.dart';
 import 'package:booksapp/setting/setting.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:helper/helper.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -43,11 +41,7 @@ class LoginView extends StatelessWidget {
             onPressed: () {
               Navigator.push(context, SettingPage.route());
             },
-            icon: Assets.images.setting.image(
-              width: 24,
-              height: 24,
-              color: ThemeHelper.getTextColor(context),
-            ),
+            icon: const Icon(Icons.settings_outlined, size: 24),
           ),
         ],
       ),
