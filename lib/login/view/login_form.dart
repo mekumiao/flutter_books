@@ -1,16 +1,10 @@
-import 'dart:io';
-
-import 'package:authentication_repository/authentication_repository.dart';
 import 'package:booksapp/l10n/localization.dart';
 import 'package:booksapp/login/login.dart';
-import 'package:browser/browser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart';
 import 'package:general_data/general_data.dart';
-import 'package:helper/helper.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -69,35 +63,36 @@ class _LoginFormState extends State<LoginForm> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  context.apptr.loginForm_emailInput_title,
-                  style: TextStyles.textBold18,
-                ),
                 Gaps.vGap16,
                 _EmailInput(
                   focusNode: focusNode,
                   controller: emailController,
-                ),
-                Gaps.vGap24,
-                Text(
-                  context.apptr.loginForm_passwordInput_title,
-                  style: TextStyles.textBold18,
                 ),
                 Gaps.vGap16,
                 _PasswordInput(
                   focusNode: focusNode,
                   controller: passwordController,
                 ),
-                Gaps.vGap24,
+                Gaps.vGap16,
                 _LoginButton(focusNode: focusNode),
-                Gaps.vGap24,
+                Gaps.vGap10,
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    if (Platform.isAndroid || Platform.isWindows)
-                      _OtherLoginButton(focusNode: focusNode),
-                    _RegisterButton(focusNode: focusNode),
+                    const _KeepLogIn(),
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        '忘记密码？',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: Dimens.font_sp8,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
                   ],
-                ),
+                )
               ],
             ),
           ),
@@ -122,35 +117,44 @@ class _EmailInput extends StatelessWidget {
       selector: (state) {
         return state.email;
       },
-      builder: (context, state) {
-        return TextField(
-          key: const Key('loginForm_emailInput_textField'),
-          maxLength: Email.max,
-          onChanged: (text) {
-            context.read<LoginCubit>().emailChanged(text);
-          },
-          controller: controller,
-          keyboardType: TextInputType.emailAddress,
-          textInputAction: TextInputAction.next,
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(vertical: 16),
-            hintText: context.apptr.loginForm_emailInput_pleaseEnterEmail,
-            errorText: state.invalid
-                ? context.apptr.loginForm_emailInput_invalidEmail
-                : null,
-            errorStyle: TextStyles.textSize10,
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).primaryColor,
-                width: 0.8,
-              ),
-            ),
-            enabledBorder: const UnderlineInputBorder(
-              borderSide: BorderSide(width: 0.8),
+      builder: (context, email) {
+        return SizedBox(
+          height: 40,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(25),
+            child: ColoredBox(
+              color: Colors.white.withOpacity(0.32),
+              child: _buildTextField(context, email),
             ),
           ),
         );
       },
+    );
+  }
+
+  Widget _buildTextField(BuildContext context, Email email) {
+    return TextField(
+      key: const Key('loginForm_emailInput_textField'),
+      onChanged: (text) {
+        context.read<LoginCubit>().emailChanged(text);
+      },
+      controller: controller,
+      style: TextStyles.textSize12.copyWith(color: Colors.white),
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      decoration: InputDecoration(
+        hintStyle: TextStyle(
+          fontSize: 9,
+          color: Colors.white.withOpacity(0.34),
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 16,
+          horizontal: 16,
+        ),
+        hintText: context.apptr.loginForm_emailInput_pleaseEnterEmail,
+        fillColor: Colors.white,
+        border: const OutlineInputBorder(borderSide: BorderSide.none),
+      ),
     );
   }
 }
@@ -170,40 +174,53 @@ class _PasswordInput extends StatelessWidget {
       selector: (state) {
         return state.password;
       },
-      builder: (context, state) {
-        return TextField(
-          key: const Key('loginForm_passwordInput_textField'),
-          maxLength: Password.max,
-          obscureText: true,
-          controller: controller,
-          onChanged: (text) {
-            context.read<LoginCubit>().passwordChanged(text);
-          },
-          keyboardType: TextInputType.visiblePassword,
-          textInputAction: TextInputAction.go,
-          onSubmitted: (value) {
-            context.read<LoginCubit>().logInWithCredentials();
-            focusNode.unfocus();
-          },
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(vertical: 16),
-            hintText: context.apptr.loginForm_passwordInput_pleaseEnterPassword,
-            errorText: state.invalid
-                ? context.apptr.loginForm_passwordInput_invalidPassword
-                : null,
-            errorStyle: TextStyles.textSize10,
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).primaryColor,
-                width: 0.8,
-              ),
-            ),
-            enabledBorder: const UnderlineInputBorder(
-              borderSide: BorderSide(width: 0.8),
+      builder: (context, password) {
+        return SizedBox(
+          height: 40,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(25),
+            child: ColoredBox(
+              color: Colors.white.withOpacity(0.32),
+              child: _buildTextField(context, password),
             ),
           ),
         );
       },
+    );
+  }
+
+  Widget _buildTextField(BuildContext context, Password password) {
+    return TextField(
+      key: const Key('loginForm_passwordInput_textField'),
+      obscureText: true,
+      controller: controller,
+      onChanged: (text) {
+        context.read<LoginCubit>().passwordChanged(text);
+      },
+      style: TextStyles.textSize12.copyWith(color: Colors.white),
+      keyboardType: TextInputType.visiblePassword,
+      textInputAction: TextInputAction.go,
+      onSubmitted: (value) {
+        context.read<LoginCubit>().logInWithCredentials();
+        focusNode.unfocus();
+      },
+      decoration: InputDecoration(
+        hintStyle: TextStyle(
+          fontSize: 9,
+          color: Colors.white.withOpacity(0.34),
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 16,
+          horizontal: 16,
+        ),
+        hintText: context.apptr.loginForm_passwordInput_pleaseEnterPassword,
+        // errorText: password.invalid
+        //     ? context.apptr.loginForm_passwordInput_invalidPassword
+        //     : null,
+        // errorStyle: TextStyles.textSize10,
+        fillColor: Colors.white,
+        border: const OutlineInputBorder(borderSide: BorderSide.none),
+      ),
     );
   }
 }
@@ -219,76 +236,95 @@ class _LoginButton extends StatelessWidget {
       selector: (state) => state.status,
       builder: (context, state) => state == FormzStatus.submissionInProgress
           ? const CircularProgressIndicator()
-          : ElevatedButton(
-              key: const Key('loginForm_loginButton_myButton'),
-              // style: ElevatedButton.styleFrom(
-              //   shape: RoundedRectangleBorder(
-              //     borderRadius: BorderRadius.circular(30),
-              //   ),
-              // ),
-              onPressed: state.isValidated
-                  ? () {
-                      context.read<LoginCubit>().logInWithCredentials();
-                      focusNode.unfocus();
-                    }
-                  : null,
-              child: Text(context.apptr.loginForm_loginButton_text),
+          : SizedBox(
+              width: double.infinity,
+              height: 40,
+              child: _buildButton(
+                context: context,
+                onPressed: state.isValidated
+                    ? () {
+                        focusNode.unfocus();
+                        context.read<LoginCubit>().logInWithCredentials();
+                        Navigator.of(context).pushAndRemoveUntil(
+                          LoginPage.route(),
+                          (route) => false,
+                        );
+                      }
+                    : null,
+              ),
             ),
     );
   }
-}
 
-class _OtherLoginButton extends StatelessWidget {
-  const _OtherLoginButton({required this.focusNode});
-
-  final FocusNode focusNode;
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocSelector<LoginCubit, LoginState, FormzStatus>(
-      selector: (state) {
-        return state.status;
-      },
-      builder: (context, state) {
-        return TextButton(
-          key: const Key('loginForm_otherLoginButton_textButton'),
-          onPressed: state == FormzStatus.submissionInProgress
-              ? null
-              : () {
-                  context.read<LoginCubit>().logInWithOther();
-                  focusNode.unfocus();
-                },
-          child: Text(context.apptr.loginForm_otherLoginButton_text),
-        );
-      },
+  Widget _buildButton({
+    required BuildContext context,
+    VoidCallback? onPressed,
+  }) {
+    return ElevatedButton(
+      key: const Key('loginForm_loginButton_myButton'),
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.white,
+        disabledBackgroundColor: Colors.white60,
+        foregroundColor: const Color(0xFF6D93FF),
+        disabledForegroundColor: const Color(0xFF6D93FF),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+        ),
+      ),
+      child: Text(
+        context.apptr.loginForm_loginButton_text,
+        textAlign: TextAlign.left,
+        style: const TextStyle(
+          fontSize: 9,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
     );
   }
 }
 
-class _RegisterButton extends StatelessWidget {
-  const _RegisterButton({required this.focusNode});
-
-  final FocusNode focusNode;
+class _KeepLogIn extends StatelessWidget {
+  const _KeepLogIn();
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      key: const Key('loginForm_registerButton_textButton'),
-      onPressed: () async {
-        focusNode.unfocus();
-        if (Device.isMobile) {
-          await Browser.open(
-            context: context,
-            title: context.apptr.loginForm_registerButton_text,
-            url: accountRegister,
-          );
-        } else {
-          if (await canLaunchUrl(accountRegister)) {
-            await launchUrl(accountRegister);
-          }
-        }
+    return Row(
+      children: [
+        _buildCheckbox(),
+        const Text(
+          'Remember me',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: Dimens.font_sp8,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCheckbox() {
+    return BlocSelector<LoginCubit, LoginState, bool>(
+      selector: (state) {
+        return state.isKeep;
       },
-      child: Text(context.apptr.loginForm_registerButton_text),
+      builder: (context, isKeep) {
+        return Checkbox(
+          value: isKeep,
+          activeColor: Colors.white,
+          checkColor: const Color(0xFF6D93FF),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+          ),
+          side: const BorderSide(color: Colors.white),
+          materialTapTargetSize: MaterialTapTargetSize.padded,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          onChanged: (value) {
+            context.read<LoginCubit>().isKeepChanged(isKeep: value ?? false);
+          },
+        );
+      },
     );
   }
 }

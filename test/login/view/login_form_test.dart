@@ -20,7 +20,6 @@ void main() {
   const passwordInputKey = Key('loginForm_passwordInput_textField');
 
   const loginButtonKey = Key('loginForm_loginButton_myButton');
-  const otherLoginButtonKey = Key('loginForm_otherLoginButton_textButton');
 
   const testEmail = 'test@gmail.com';
   const testPassword = 'testP@ssw0rd1';
@@ -31,7 +30,7 @@ void main() {
     setUp(() {
       loginCubit = MockLoginCubit();
       when(() => loginCubit.state).thenReturn(const LoginState());
-      when(() => loginCubit.logInWithOther()).thenAnswer((_) async {});
+      when(() => loginCubit.logInWithGoogle()).thenAnswer((_) async {});
       when(() => loginCubit.logInWithCredentials()).thenAnswer((_) async {});
     });
 
@@ -77,20 +76,6 @@ void main() {
         );
         await tester.tap(find.byKey(loginButtonKey));
         verify(() => loginCubit.logInWithCredentials()).called(1);
-      });
-
-      testWidgets('logInWithOther when sign in with other button is pressed',
-          (tester) async {
-        await tester.pumpMaterialApp(
-          Scaffold(
-            body: BlocProvider.value(
-              value: loginCubit,
-              child: const LoginForm(),
-            ),
-          ),
-        );
-        await tester.tap(find.byKey(otherLoginButtonKey));
-        verify(() => loginCubit.logInWithOther()).called(1);
       });
     });
 
@@ -186,18 +171,6 @@ void main() {
           find.byKey(loginButtonKey),
         );
         expect(loginButton.enabled, isTrue);
-      });
-
-      testWidgets('Sign in with Other Button', (tester) async {
-        await tester.pumpMaterialApp(
-          Scaffold(
-            body: BlocProvider.value(
-              value: loginCubit,
-              child: const LoginForm(),
-            ),
-          ),
-        );
-        expect(find.byKey(otherLoginButtonKey), findsOneWidget);
       });
     });
   });
