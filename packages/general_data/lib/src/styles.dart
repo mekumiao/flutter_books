@@ -9,6 +9,10 @@ class TextStyles {
     textBaseline: TextBaseline.alphabetic,
   );
 
+  static const TextStyle textSize8 = TextStyle(
+    fontSize: Dimens.font_sp8,
+  );
+
   static const TextStyle textSize10 = TextStyle(
     fontSize: Dimens.font_sp10,
   );

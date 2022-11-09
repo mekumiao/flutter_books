@@ -1,27 +1,27 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:general_data/general_data.dart';
+// import 'package:general_data/general_data.dart';
 
 class ThemeDatas {
   const ThemeDatas._();
 
   static ThemeData lightThemeData(String fontFamily) => ThemeData(
         fontFamily: fontFamily,
-        errorColor: Colours.error,
-        primaryColor: Colours.light,
-        indicatorColor: Colours.light,
-        scaffoldBackgroundColor: Colours.light,
-        canvasColor: Colours.light,
+        // errorColor: Colours.error,
+        // primaryColor: Colours.light,
+        // indicatorColor: Colours.light,
+        // scaffoldBackgroundColor: Colours.light,
+        // canvasColor: Colours.light,
         pageTransitionsTheme: _NoTransitionsOnWeb(),
       );
 
   static ThemeData darkThemeData(String fontFamily) => ThemeData(
         fontFamily: fontFamily,
-        errorColor: Colours.error,
-        primaryColor: Colours.dark,
-        indicatorColor: Colours.dark,
-        scaffoldBackgroundColor: Colours.dark,
-        canvasColor: Colours.dark,
+        // errorColor: Colours.error,
+        // primaryColor: Colours.dark,
+        // indicatorColor: Colours.dark,
+        // scaffoldBackgroundColor: Colours.dark,
+        // canvasColor: Colours.dark,
         pageTransitionsTheme: _NoTransitionsOnWeb(),
       );
 }

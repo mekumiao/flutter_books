@@ -73,7 +73,7 @@ void main() {
     );
   });
 
-  group('logInWithOther', () {
+  group('logInWithGoogle', () {
     blocTest<LoginCubit, LoginState>(
       'invokes logInWithID4',
       setUp: () {
@@ -84,7 +84,7 @@ void main() {
       build: () => LoginCubit(
         authenticationRepository: authenticationRepository,
       ),
-      act: (cubit) => cubit.logInWithOther(),
+      act: (cubit) => cubit.logInWithGoogle(),
       seed: () => const LoginState(email: testEmail, password: testPassword),
       expect: () => [
         const LoginState(
