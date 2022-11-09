@@ -6,11 +6,11 @@ import 'package:stream_transform/stream_transform.dart';
 
 /// 在处理当前event结束前，抛弃其余event。并且减速当前正在处理的event流
 EventTransformer<E> throttleDroppable<E>({
-  Duration duration = const Duration(milliseconds: 300),
+  Duration? duration = const Duration(milliseconds: 300),
 }) {
   return (events, mapper) {
     return droppable<E>().call(
-      events.throttle(duration),
+      duration != null ? events.throttle(duration) : events,
       mapper,
     );
   };

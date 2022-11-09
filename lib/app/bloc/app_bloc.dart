@@ -25,7 +25,12 @@ class AppBloc extends Bloc<AppEvent, AppState> {
           ),
         ) {
     on<AutoAuthorized>(_onAutoAuthorized);
-    on<UserChanged>(_onUserChanged, transformer: throttleDroppable());
+    on<UserChanged>(
+      _onUserChanged,
+      transformer: throttleDroppable(
+        duration: const Duration(milliseconds: 100),
+      ),
+    );
     on<LogoutRequested>(_onLogoutRequested);
     on<ThemeModeChanged>(_onThemeModeChanged);
     on<LanguageCodeChanged>(_onLanguageCodeChanged);

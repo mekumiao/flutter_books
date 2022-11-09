@@ -151,6 +151,7 @@ class _AppViewState extends State<AppView> {
 
   Widget _buildBlocListener(Widget? child) {
     return BlocListener<AppBloc, AppState>(
+      listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         Log.logger.d(':BlocListener ${state.status}');
         switch (state.status) {
